@@ -6,8 +6,6 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras import optimizers, initializers, regularizers, metrics
 from keras.callbacks import ModelCheckpoint, EarlyStopping, ReduceLROnPlateau
 import os
-from glob import glob
-from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import io
@@ -67,7 +65,7 @@ def get_model():
     
     x = layers.Flatten()(x)
     x = layers.Dense(4096, kernel_initializer='he_normal')(x)
-    x = layers.Dropout(0.3)(x)
+    x = layers.Dropout(0.5)(x)
     x = layers.Dense(4096, kernel_initializer='he_normal')(x)
     x = layers.Dropout(0.3)(x)
     output_tensor = layers.Dense(classes, activation='sigmoid')(x)
@@ -88,7 +86,7 @@ checkpoint = ModelCheckpoint(file_path,
             save_best_only=True)
 early = EarlyStopping(monitor="val_acc", mode="min", patience=7, verbose=1)
 redonplat = ReduceLROnPlateau(monitor="val_acc", mode="min", patience=5, verbose=2)
-callbacks_list=[checkpoint, redonplat]
+callbacks_list=[checkpoint, redonplat, early]
 
 model.fit(X_train, y_train, epochs=25, callbacks=callbacks_list, verbose=2, validation_split=0.1)
 # model.load_weights(file_path)
