@@ -5,3 +5,5 @@ __pycache__
 *.mat
 *.h5
 *.hdf5
+*.zip
+others

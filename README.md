@@ -17,3 +17,5 @@ The Problem is the ambiguous ECG
 ## Next
 to detect ambiguous ECG, i will try Ensemble.  
 make each 12-lead-ECG to CNN model and Ensemble.
+
+#### compare docs uploaded
